@@ -2186,30 +2186,8 @@ static ssize_t show_reg(struct device *dev,
 	return strlen(buf);
 }
 
-static int __init sensors_nct7802_init(void)
-{
-	int ret;
-	printk("[FAN] sensors_nct7802_init\n");
-
-	ret=i2c_add_driver(&nct7802_driver);
-	if (ret)
-		printk("[FAN] nct7802 driver int failed.\n");
-	else
-		printk("[FAN] nct7802 driver int success.\n");
-
-	return ret;
-}
-
-static void __exit sensors_nct7802_exit(void)
-{
-	printk("[FAN] sensors_nct7802_exit\n");
-
-	i2c_del_driver(&nct7802_driver);
-}
+module_i2c_driver(nct7802_driver);
 
 MODULE_AUTHOR("Sheng-Yuan Huang");
 MODULE_DESCRIPTION("NCT7802 driver");
 MODULE_LICENSE("GPL");
-
-module_init(sensors_nct7802_init);
-module_exit(sensors_nct7802_exit);
